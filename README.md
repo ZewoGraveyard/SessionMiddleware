@@ -39,10 +39,12 @@ struct User {
 
 extension Session {
     var user: User? {
-        if let user = self["user"] as? User {
-            return user
+        get {
+            return self["user"] as? User
         }
-        return nil
+        set {
+            self["user"] = newValue
+        }
     }
 }
 ```

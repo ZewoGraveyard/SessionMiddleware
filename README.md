@@ -10,19 +10,23 @@ A simple example looks like so:
 ```swift
 let sessionMiddleware = SessionMiddleware()
 
-// using Zewo/Router module
+// Using Zewo/Router module.
+// With this setup, a GET request to /am-i-logged-in will return 'false',
+// but, after making a GET request to /login, making another GET request to /am-i-logged-in
+// will return the body 'true'.
 let router = Router(middleware: sessionMiddleware) { route in
+
     route.get("/login") { request in
         request.session?["loggedIn"] = true
         return Response(body: "you are now logged in!")
     }
+
     route.get("/am-i-logged-in") { request in
-        return Response(body: String((request.session?["loggedIn"])))
+        let loggedIn = request.session?["loggedIn"] as? Bool
+
+        return Response(body: String(loggedIn ?? false))
     }
 }
-// with this setup, a GET request to /am-i-logged-in will return 'false',
-// but, after making a GET request to /login, making the previous GET request
-// will return the body 'true'
 ```
 
 # Advanced
@@ -50,6 +54,7 @@ route.get("/login/:name") { request in
     guard let name = request.pathParameters["name"] else {
         return Response(status: .internalServerError)
     }
+
     request.session?["user"] = User(name: name)
     return Response(status: .created)
 }
@@ -58,6 +63,7 @@ route.get("/what-is-my-name") { request in
     guard let user = request.user else {
         return Response(status: .badRequest, body: "You're not logged in yet, silly!")
     }
+
     return Response(body: "Your name is \(user.name)")
 }
 ```

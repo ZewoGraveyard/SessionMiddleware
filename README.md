@@ -30,7 +30,7 @@ let router = Router(middleware: sessionMiddleware) { route in
 ```
 
 ### Advanced
-It is recommended to add convenience extensions to `Session` like so:
+It is recommended to add convenience extensions to `Session` or `Request` like so:
 
 ```swift
 struct User {
@@ -57,12 +57,12 @@ route.get("/login/:name") { request in
         return Response(status: .internalServerError)
     }
 
-    request.session?["user"] = User(name: name)
+    request.session?.user = User(name: name)
     return Response(status: .created)
 }
 
 route.get("/what-is-my-name") { request in
-    guard let user = request.user else {
+    guard let user = request.session?.user else {
         return Response(status: .badRequest, body: "You're not logged in yet, silly!")
     }
 

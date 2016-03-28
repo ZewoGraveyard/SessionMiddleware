@@ -4,7 +4,7 @@
 Persist sessions between requests using Cookies. [Zewo](https://github.com/Zewo/Zewo) compatible.
 
 ## Usage
-# Basic
+### Basic
 A simple example looks like so:
 
 ```swift
@@ -29,7 +29,7 @@ let router = Router(middleware: sessionMiddleware) { route in
 }
 ```
 
-# Advanced
+### Advanced
 It is recommended to add convenience extensions to `Session` like so:
 
 ```swift

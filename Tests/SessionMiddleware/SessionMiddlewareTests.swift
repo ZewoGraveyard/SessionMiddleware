@@ -8,7 +8,7 @@ class SessionMiddlewareTests: XCTestCase {
     func testCookieIsAdded() throws {
         let request = Request()
 
-        let response = try middleware.respond(request, chain: BasicResponder { request in
+        let response = try middleware.respond(to: request, chainingTo: BasicResponder { request in
             XCTAssertNotNil(request.session)
             return Response()
         })
@@ -20,7 +20,7 @@ class SessionMiddlewareTests: XCTestCase {
         let request1 = Request()
         var request2: Request!
 
-        let response1 = try middleware.respond(request1, chain: BasicResponder { req in
+        let response1 = try middleware.respond(to: request1, chainingTo: BasicResponder { req in
             request2 = req
             return Response()
         })
@@ -34,7 +34,7 @@ class SessionMiddlewareTests: XCTestCase {
 
         // make another request, this time with the cookie
         var request3: Request!
-        let _ = try middleware.respond(request2, chain: BasicResponder { req in
+        let _ = try middleware.respond(to: request2, chainingTo: BasicResponder { req in
             request3 = req
             return Response()
         })

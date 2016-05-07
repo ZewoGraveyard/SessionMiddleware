@@ -11,7 +11,7 @@ public final class SessionMiddleware: Middleware {
         self.storage = storage
     }
 
-    public func respond(request: Request, chain: Responder) throws -> Response {
+    public func respond(to request: Request, chainingTo chain: Responder) throws -> Response {
 
         var request = request
 
@@ -29,11 +29,11 @@ public final class SessionMiddleware: Middleware {
         }()
 
         // ensure that we have a session, and attach it to the request
-        let session = storage[cookie.extendedHash] ?? createNewSession(cookie)
+        let session = storage[cookie.extendedHash] ?? createNewSession(cookie: cookie)
         request.storage[SessionMiddleware.cookieName] = session
 
         // at this point, we have a cookie and a session. call the rest of the chain!
-        var response = try chain.respond(request)
+        var response = try chain.respond(to: request)
 
         // if no cookie was originally in the request, we should put it in the response
         if createdCookie {

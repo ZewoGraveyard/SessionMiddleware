@@ -1,7 +1,7 @@
 # SessionMiddleware
 [![Zewo 0.4](https://img.shields.io/badge/Zewo-0.4-FF7565.svg?style=flat)](http://zewo.io) [![Swift 3](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://swift.org) [![Platform Linux](https://img.shields.io/badge/Platform-Linux-lightgray.svg?style=flat)](https://swift.org) [![License MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://tldrlegal.com/license/mit-license)
 
-Persist sessions between requests using Cookies. [Zewo](https://github.com/Zewo/Zewo) compatible.
+Persist sessions between requests using Cookies. [Zewo](https://github.com/Zewo/Zewo) compatible. Works with development snapshots 04/12-05/03 on 0.2, earlier versions should use 0.1.
 
 ## Usage
 ### Basic
